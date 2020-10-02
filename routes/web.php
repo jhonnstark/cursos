@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/admin/login', 'Auth\AdminLoginController@showLoginForm');
 Route::get('/teacher/login', 'Auth\TeacherLoginController@showLoginForm');
@@ -27,6 +27,20 @@ Route::get('/teacher/login', 'Auth\TeacherLoginController@showLoginForm');
 Route::post('/admin/login', 'Auth\AdminLoginController@Login');
 Route::post('/teacher/login', 'Auth\TeacherLoginController@login');
 
-Route::get('/admin', 'HomeController@admin')->middleware('auth:admin');
-Route::get('/teacher', 'HomeController@teacher')->middleware('auth:teacher');
 
+Route::prefix('/admin')
+    ->name('admin.')
+    ->namespace('Admin')
+    ->middleware('auth:admin')
+    ->group(function(){
+    //All the admin routes will be defined here...
+        Route::get('/', 'AdminDashboard@admin');
+});
+Route::prefix('/teacher')
+    ->middleware('auth:teacher')
+    ->name('teacher.')
+    ->namespace('Teacher')
+    ->group(function(){
+    //All the teacher routes will be defined here...
+        Route::get('/', 'TeacherDashboard@teacher');
+});

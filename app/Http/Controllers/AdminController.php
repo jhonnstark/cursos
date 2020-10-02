@@ -20,7 +20,7 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -31,7 +31,7 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Admin  $admin
+     * @param  Admin  $admin
      * @return \Illuminate\Http\Response
      */
     public function show(Admin $admin)
@@ -42,8 +42,8 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Admin  $admin
+     * @param Request $request
+     * @param  Admin  $admin
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Admin $admin)
@@ -54,7 +54,7 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Admin  $admin
+     * @param  Admin  $admin
      * @return \Illuminate\Http\Response
      */
     public function destroy(Admin $admin)
