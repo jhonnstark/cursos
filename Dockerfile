@@ -52,6 +52,7 @@ RUN composer install
 RUN composer run post-root-package-install
 RUN composer run post-create-project-cmd
 
+ENTRYPOINT ["./docker-entrypoint.sh"]
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]

@@ -38,20 +38,12 @@ services:
       - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - app-network
-
-  node:
-    image: node:12
-    container_name: webserver
-    restart: unless-stopped
-    tty: true
-    depends_on:
-      - app
-    working_dir: /var/www
-    entrypoint: ./node/entrypoint.sh
-    volumes:
-      - ./:/var/www
-    networks:
-      - app-network
+    healthcheck:
+      test: curl -fk https://localhost
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 120s
 
   #MySQL Service
   db:
