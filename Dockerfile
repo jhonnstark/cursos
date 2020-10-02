@@ -5,6 +5,7 @@ FROM node:12-alpine AS builder
 WORKDIR /temp/
 COPY ./package.json ./package-lock.json ./webpack.mix.js ./
 COPY ./resources ./resources
+COPY ./node_modules ./node_modules
 
 RUN npm i && npm run dev
 
@@ -56,6 +57,8 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 COPY . /var/www
 
 COPY --from=builder /temp/public /var/www/public
+COPY --from=builder /temp/node_modules /var/www/node_modules
+
 # Copy existing application directory permissions
 COPY --chown=www:www . /var/www
 
@@ -65,6 +68,8 @@ USER www
 RUN composer install
 RUN composer run post-root-package-install
 RUN composer run post-create-project-cmd
+
+RUN cd public && ls
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
 # Expose port 9000 and start php-fpm server
