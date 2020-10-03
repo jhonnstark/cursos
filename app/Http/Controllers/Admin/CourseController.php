@@ -3,12 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CourseRequest;
 use App\Http\Resources\CourseCollection;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class CourseController extends Controller
 {
+
+    /**
+     * Display a listing view of the resource.
+     */
+    private $role = ['role' => 'course'];
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +24,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return view('admin.list', ['role' => 'course']);
+        return view('admin.list', $this->role);
     }
 
     /**
@@ -30,14 +38,28 @@ class CourseController extends Controller
     }
 
     /**
+     * Display a register form of the resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create()
+    {
+        return view('admin.register', $this->role);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CourseRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(CourseRequest $request)
     {
-        //
+        Course::create($request->validated());
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+        ], 201);
     }
 
     /**

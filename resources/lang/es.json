@@ -3,6 +3,8 @@
     "Remember Me": "Recuerda este usuario",
     "Forgot Your Password?": "Olvide mi password",
     "Register": "Registro",
+    "Formulario admin": "Formulario de creacion de administradores",
+    "Formulario user": "Formulario de creacion de alumnos",
     "Logout": "Logout",
     "Login": "Login"
 }

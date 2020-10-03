@@ -190,11 +190,18 @@ export default {
             if (this.$v.$invalid) {
                 this.errors = true;
             } else {
+                this.$v.$reset();
                 this.errors = false;
                 axios.post('/admin/' + this.role + '/register', this.record)
                     .then(response => {
-                        console.log(response);
+                        this.record.name = null;
+                        this.record.email = null;
+                        this.record.lastname = null;
+                        this.record.mothers_lastname = null;
+                        this.record.password = null;
+                        this.record.password_confirmation = null;
                     })
+                    .catch(error => console.log(error))
             }
         }
     },
