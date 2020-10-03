@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminRequest;
 use App\Http\Resources\AdminCollection;
 use App\Models\Admin;
 use App\Http\Resources\Admin as AdminResource;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class AdminController extends Controller
 {
+    private $role = ['role' => 'admins'];
     /**
      * Display a listing view of the resource.
      *
@@ -17,7 +20,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.list', ['role' => 'admins']);
+        return view('admin.list', $this->role);
     }
 
     /**
@@ -33,22 +36,23 @@ class AdminController extends Controller
     /**
      * Display a register form of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
-        //
+        return view('admin.register', $this->role);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @param AdminRequest $request
+     * @return Response
      */
-    public function store(Request $request)
+    public function store(AdminRequest $request)
     {
-        //
+        Admin::create($request->validated());
+        return response(201);
     }
 
     /**
@@ -67,7 +71,7 @@ class AdminController extends Controller
      *
      * @param Request $request
      * @param  Admin  $admin
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, Admin $admin)
     {
@@ -78,7 +82,7 @@ class AdminController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  Admin  $admin
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy(Admin $admin)
     {
