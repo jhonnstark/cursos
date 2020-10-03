@@ -49,6 +49,11 @@
                     :class="{ 'is-invalid': $v.record.mothers_lastname.$error }"
                     id="mothers_lastname" type="text" class="form-control" name="mothers_lastname" required autocomplete="mothers_lastname" autofocus>
 
+                <span
+                    v-if="!$v.record.mothers_lastname.error"
+                    class="invalid-feedback" role="alert">
+                    <strong>Campo invalido</strong>
+                </span>
             </div>
         </div>
 
@@ -160,8 +165,16 @@ export default {
                 minLength: minLength(6),
                 maxLength: maxLength(255)
             },
-            lastname: {},
-            mothers_lastname: {},
+            lastname: {
+                required,
+                minLength: minLength(3),
+                maxLength: maxLength(255)
+            },
+            mothers_lastname: {
+                required,
+                minLength: minLength(3),
+                maxLength: maxLength(255)
+            },
             password: {
                 required,
                 minLength: minLength(6),

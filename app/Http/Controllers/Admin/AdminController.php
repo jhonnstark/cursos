@@ -13,7 +13,13 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
+
+
+    /**
+     * Display a listing view of the resource.
+     */
     private $role = ['role' => 'admins'];
+
     /**
      * Display a listing view of the resource.
      *

@@ -3,12 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TeacherRequest;
 use App\Http\Resources\TeacherCollection;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class TeacherController extends Controller
 {
+
+    /**
+     * Display a listing view of the resource.
+     */
+    private $role = ['role' => 'teacher'];
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +24,7 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        return view('admin.list', ['role' => 'teacher']);
+        return view('admin.list', $this->role);
     }
 
     /**
@@ -30,14 +38,31 @@ class TeacherController extends Controller
     }
 
     /**
+     * Display a register form of the resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create()
+    {
+        return view('admin.register', $this->role);
+    }
+
+
+    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param TeacherRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(TeacherRequest $request)
     {
-        //
+        $record = $request->validated();
+        $record['password'] = Hash::make($record['password']);
+        Teacher::create($record);
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+        ], 201);
     }
 
     /**
