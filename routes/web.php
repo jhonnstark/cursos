@@ -37,8 +37,9 @@ Route::prefix('/admin')
 
 
         Route::prefix('/admins')
+            ->name('admins.')
             ->group(function(){
-                Route::get('/', 'AdminController@index');
+                Route::get('/', 'AdminController@index')->name('list');
                 Route::get('/list', 'AdminController@list');
                 Route::get('/register', 'AdminController@create');
                 Route::post('/register', 'AdminController@store');
@@ -46,8 +47,9 @@ Route::prefix('/admin')
             });
 
         Route::prefix('/teacher')
+            ->name('teacher.')
             ->group(function(){
-                Route::get('/', 'TeacherController@index');
+                Route::get('/', 'TeacherController@index')->name('list');
                 Route::get('/list', 'TeacherController@index');
                 Route::get('/register', 'TeacherController@create');
                 Route::post('/register', 'TeacherController@store');
@@ -55,8 +57,9 @@ Route::prefix('/admin')
             });
 
         Route::prefix('/course')
+            ->name('course.')
             ->group(function(){
-                Route::get('/list', 'CourseController@index');
+                Route::get('/', 'CourseController@index')->name('list');
                 Route::get('/list', 'CourseController@index');
                 Route::get('/register', 'CourseController@create');
                 Route::post('/register', 'CourseController@store');
