@@ -33,8 +33,35 @@ Route::prefix('/admin')
     ->namespace('Admin')
     ->middleware('auth:admin')
     ->group(function(){
-    //All the admin routes will be defined here...
         Route::get('/', 'AdminDashboard@admin');
+
+
+        Route::prefix('/admins')
+            ->group(function(){
+                Route::get('/', 'AdminController@index');
+                Route::get('/list', 'AdminController@list');
+                Route::get('/register', 'AdminController@create');
+                Route::post('/register', 'AdminController@store');
+                Route::post('/delete', 'AdminController@destroy');
+            });
+
+        Route::prefix('/teacher')
+            ->group(function(){
+                Route::get('/', 'TeacherController@index');
+                Route::get('/list', 'TeacherController@index');
+                Route::get('/register', 'TeacherController@create');
+                Route::post('/register', 'TeacherController@store');
+                Route::post('/delete', 'TeacherController@destroy');
+            });
+
+        Route::prefix('/course')
+            ->group(function(){
+                Route::get('/list', 'CourseController@index');
+                Route::get('/list', 'CourseController@index');
+                Route::get('/register', 'CourseController@create');
+                Route::post('/register', 'CourseController@store');
+                Route::post('/delete', 'CourseController@destroy');
+            });
 });
 Route::prefix('/teacher')
     ->middleware('auth:teacher')

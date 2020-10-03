@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Admin;
+use App\Http\Controllers\Controller;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class TeacherController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +21,7 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -31,10 +32,10 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Admin  $admin
+     * @param  \App\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function show(Admin $admin)
+    public function show(Teacher $teacher)
     {
         //
     }
@@ -42,11 +43,11 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param  Admin  $admin
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, Teacher $teacher)
     {
         //
     }
@@ -54,10 +55,10 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Admin  $admin
+     * @param  \App\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $admin)
+    public function destroy(Teacher $teacher)
     {
         //
     }
