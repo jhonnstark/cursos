@@ -10904,3 +10904,7 @@ a.text-dark:focus {
   }
 }
 
+.navbar-logo {
+  max-width: 140px;
+}
+

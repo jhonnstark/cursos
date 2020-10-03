@@ -14,4 +14,16 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .sourceMaps()
     .extract(['vue'])
-    .sass('resources/sass/app.scss', 'public/css');
+    .copyDirectory('resources/img', 'public/img')
+    .sass('resources/sass/app.scss', 'public/css')
+    .browserSync({
+        open: 'external',
+        host: 'localhost',
+        proxy: 'localhost',
+        files: [
+            'resources/views/**/*.php',
+            'app/**/*.php', 'routes/**/*.php',
+            'public/js/*.js',
+            'public/css/*.css'
+        ]
+    });
