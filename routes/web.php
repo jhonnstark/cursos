@@ -43,7 +43,7 @@ Route::prefix('/admin')
                 Route::get('/list', 'AdminController@list');
                 Route::get('/register', 'AdminController@create')->name('register');
                 Route::post('/register', 'AdminController@store');
-                Route::post('/delete', 'AdminController@destroy');
+                Route::delete('/delete/{admin}', 'AdminController@destroy');
             });
 
         Route::prefix('/teacher')
@@ -53,7 +53,7 @@ Route::prefix('/admin')
                 Route::get('/list', 'TeacherController@list');
                 Route::get('/register', 'TeacherController@create')->name('register');
                 Route::post('/register', 'TeacherController@store');
-                Route::post('/delete', 'TeacherController@destroy');
+                Route::delete('/delete/{teacher}', 'TeacherController@destroy');
             });
 
         Route::prefix('/user')
@@ -63,7 +63,7 @@ Route::prefix('/admin')
                 Route::get('/list', 'UserController@list');
                 Route::get('/register', 'UserController@create')->name('register');
                 Route::post('/register', 'UserController@store');
-                Route::post('/delete', 'UserController@destroy');
+                Route::delete('/delete/{user}', 'UserController@destroy');
             });
 
         Route::prefix('/course')
@@ -73,7 +73,7 @@ Route::prefix('/admin')
                 Route::get('/list', 'CourseController@list');
                 Route::get('/register', 'CourseController@create')->name('register');
                 Route::post('/register', 'CourseController@store');
-                Route::post('/delete', 'CourseController@destroy');
+                Route::delete('/delete/{course}', 'CourseController@destroy');
             });
 });
 Route::prefix('/teacher')

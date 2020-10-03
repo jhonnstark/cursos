@@ -10931,7 +10931,7 @@ svg {
   border-color: #182254;
 }
 
-.btn svg {
-  margin-right: 5px;
+.btn svg + * {
+  margin-left: 5px;
 }
 

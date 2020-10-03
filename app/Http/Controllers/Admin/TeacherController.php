@@ -91,11 +91,16 @@ class TeacherController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Teacher  $teacher
-     * @return \Illuminate\Http\Response
+     * @param Teacher $teacher
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Teacher $teacher)
     {
-        //
+        $teacher->delete();
+        return response()->json([
+            'status' => 204,
+            'message' => 'Deleted teacher'
+        ],204 );
     }
 }

@@ -94,10 +94,14 @@ class AdminController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  Admin  $admin
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Admin $admin)
     {
-        //
+        $admin->delete();
+        return response()->json([
+            'status' => 204,
+            'message' => 'Deleted admin'
+        ],204 );
     }
 }

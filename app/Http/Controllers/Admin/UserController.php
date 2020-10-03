@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserCollection;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Resources\User as UserResource;
@@ -53,7 +54,7 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param UserRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function store(UserRequest $request)
     {
@@ -104,10 +105,14 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param User $user
-     * @return void
+     * @return JsonResponse
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return response()->json([
+            'status' => 204,
+            'message' => 'Deleted user'
+        ],204 );
     }
 }

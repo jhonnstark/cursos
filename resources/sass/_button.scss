@@ -1,5 +1,5 @@
 .btn {
-    svg {
-        margin-right: 5px;
+    svg + *{
+        margin-left: 5px;
     }
 }
