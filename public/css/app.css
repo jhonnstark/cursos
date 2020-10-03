@@ -10908,6 +10908,10 @@ hr {
   box-sizing: border-box;
 }
 
+svg {
+  fill: #fff;
+}
+
 .container .row {
   margin-bottom: 20px;
 }
@@ -10925,5 +10929,9 @@ hr {
 .table .thead-dark .th {
   background-color: #182254;
   border-color: #182254;
+}
+
+.btn svg {
+  margin-right: 5px;
 }
 
