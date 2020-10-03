@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AdminCollection;
 use App\Models\Admin;
-use App\Http\Resources\Admin as AdminResourse;
+use App\Http\Resources\Admin as AdminResource;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -55,11 +55,11 @@ class AdminController extends Controller
      * Display the specified resource.
      *
      * @param  Admin  $admin
-     * @return Admin
+     * @return AdminResource
      */
     public function show(Admin $admin)
     {
-        return new AdminResourse($admin);
+        return new AdminResource($admin);
     }
 
     /**

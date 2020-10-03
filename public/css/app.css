@@ -10904,6 +10904,10 @@ a.text-dark:focus {
   }
 }
 
+.container .row {
+  margin-bottom: 20px;
+}
+
 .navbar-logo {
   max-width: 140px;
 }

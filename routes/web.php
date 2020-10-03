@@ -56,6 +56,16 @@ Route::prefix('/admin')
                 Route::post('/delete', 'TeacherController@destroy');
             });
 
+        Route::prefix('/user')
+            ->name('user.')
+            ->group(function(){
+                Route::get('/', 'UserController@index')->name('list');
+                Route::get('/list', 'UserController@index');
+                Route::get('/register', 'UserController@create');
+                Route::post('/register', 'UserController@store');
+                Route::post('/delete', 'UserController@destroy');
+            });
+
         Route::prefix('/course')
             ->name('course.')
             ->group(function(){

@@ -24,6 +24,7 @@ mix.js('resources/js/app.js', 'public/js')
             'resources/views/**/*.php',
             'app/**/*.php', 'routes/**/*.php',
             'public/js/*.js',
+            'resources/js/components/*.vue',
             'public/css/*.css'
         ]
     });
