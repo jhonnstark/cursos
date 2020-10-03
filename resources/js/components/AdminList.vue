@@ -12,8 +12,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
+                <tr v-for="item in items" :key="item.id">
+                    <th scope="row">{{ item.id }}</th>
                     <td>Mark</td>
                     <td>Otto</td>
                     <td>@mdo</td>
@@ -27,7 +27,17 @@
 
 <script>
 export default {
-name: "AdminList"
+    name: "AdminList",
+    data: function () {
+        return {
+            items: null
+        }
+    },
+    mounted () {
+        axios
+            .get('/admin/admins/list')
+            .then(response => (this.items = response.data))
+    }
 }
 </script>
 

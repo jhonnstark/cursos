@@ -3,19 +3,31 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AdminCollection;
 use App\Models\Admin;
+use App\Http\Resources\Admin as AdminResourse;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing view of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
         return view('admin.list');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return AdminCollection
+     */
+    public function list()
+    {
+        return new AdminCollection(Admin::all());
     }
 
     /**
@@ -43,11 +55,11 @@ class AdminController extends Controller
      * Display the specified resource.
      *
      * @param  Admin  $admin
-     * @return \Illuminate\Http\Response
+     * @return Admin
      */
     public function show(Admin $admin)
     {
-        //
+        return new AdminResourse($admin);
     }
 
     /**
