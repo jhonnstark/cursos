@@ -33,7 +33,7 @@ Route::prefix('/admin')
     ->namespace('Admin')
     ->middleware('auth:admin')
     ->group(function(){
-        Route::get('/', 'AdminDashboard@admin');
+        Route::get('/', 'AdminDashboard@admin')->name('dashboard');
 
 
         Route::prefix('/admins')

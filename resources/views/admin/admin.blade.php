@@ -1,12 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+
+    <div class="container">
+        <div class="row justify-content-between">
+            <h1>Dashboard</h1>
+            <hr class="col-12">
+        </div>
+    </div>
+
     <div class="container">
         <div class="row justify-content-center">
 
             <div class="card col-sm">
                 <div class="card-body">
-                    <h5 class="card-title">Admins</h5>
+                    <h5 class="card-title">Administradores</h5>
                     <p class="card-text">Administración y registro de administradores.</p>
                     <a href="{{ route('admin.admins.list') }}" class="btn btn-primary">Entrar</a>
                 </div>
