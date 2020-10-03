@@ -41,7 +41,7 @@ Route::prefix('/admin')
             ->group(function(){
                 Route::get('/', 'AdminController@index')->name('list');
                 Route::get('/list', 'AdminController@list');
-                Route::get('/register', 'AdminController@create')->name('register');;
+                Route::get('/register', 'AdminController@create')->name('register');
                 Route::post('/register', 'AdminController@store');
                 Route::post('/delete', 'AdminController@destroy');
             });
@@ -51,7 +51,7 @@ Route::prefix('/admin')
             ->group(function(){
                 Route::get('/', 'TeacherController@index')->name('list');
                 Route::get('/list', 'TeacherController@list');
-                Route::get('/register', 'TeacherController@create')->name('register');;;
+                Route::get('/register', 'TeacherController@create')->name('register');
                 Route::post('/register', 'TeacherController@store');
                 Route::post('/delete', 'TeacherController@destroy');
             });
@@ -61,7 +61,7 @@ Route::prefix('/admin')
             ->group(function(){
                 Route::get('/', 'UserController@index')->name('list');
                 Route::get('/list', 'UserController@list');
-                Route::get('/register', 'UserController@create')->name('register');;;
+                Route::get('/register', 'UserController@create')->name('register');
                 Route::post('/register', 'UserController@store');
                 Route::post('/delete', 'UserController@destroy');
             });
@@ -71,7 +71,7 @@ Route::prefix('/admin')
             ->group(function(){
                 Route::get('/', 'CourseController@index')->name('list');
                 Route::get('/list', 'CourseController@list');
-                Route::get('/register', 'CourseController@create');
+                Route::get('/register', 'CourseController@create')->name('register');
                 Route::post('/register', 'CourseController@store');
                 Route::post('/delete', 'CourseController@destroy');
             });

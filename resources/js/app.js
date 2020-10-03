@@ -7,6 +7,11 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+const { Vuelidate } = require('vuelidate')
+/**
+ * Validation for forms
+ */
+Vue.use(Vuelidate)
 
 /**
  * The following block of code may be used to automatically register your
@@ -22,6 +27,7 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('admin-list', require('./components/AdminList.vue').default);
 Vue.component('course-list', require('./components/CourseList.vue').default);
+Vue.component('register-form', require('./components/RegisterForm.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
