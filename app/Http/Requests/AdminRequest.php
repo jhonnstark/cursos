@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AdminRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class AdminRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,8 +27,8 @@ class AdminRequest extends FormRequest
         return [
             'email' => 'bail|required|email|unique:admins,email|max:255',
             'name' => 'required',
-            'lastname' => 'required',
-            'mothers_lastname' => 'required',
+        //    'lastname' => 'required',
+       //     'mothers_lastname' => 'required',
             'password' => 'required|confirmed',
         ];
     }

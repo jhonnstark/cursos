@@ -9,6 +9,7 @@ use App\Models\Admin;
 use App\Http\Resources\Admin as AdminResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -47,12 +48,17 @@ class AdminController extends Controller
      * Store a newly created resource in storage.
      *
      * @param AdminRequest $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(AdminRequest $request)
     {
-        Admin::create($request->validated());
-        return response(201);
+        $record = $request->validated();
+        $record['password'] = Hash::make($record['password']);
+        Admin::create($record);
+        return response()->json([
+            'status' => 201,
+            'message' => 'created',
+        ], 201);
     }
 
     /**
