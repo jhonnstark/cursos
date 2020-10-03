@@ -11,8 +11,5 @@ $factory->define(UserProfile::class, function (Faker $faker) {
     return [
         'user_id' => factory(User::class),
         'state_id' => 9,
-        'name' => $faker->name,
-        'lastname' => $faker->lastName,
-        'mothers_lastname' => $faker->lastName,
     ];
 });

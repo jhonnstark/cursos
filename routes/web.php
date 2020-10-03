@@ -50,7 +50,7 @@ Route::prefix('/admin')
             ->name('teacher.')
             ->group(function(){
                 Route::get('/', 'TeacherController@index')->name('list');
-                Route::get('/list', 'TeacherController@index');
+                Route::get('/list', 'TeacherController@list');
                 Route::get('/register', 'TeacherController@create');
                 Route::post('/register', 'TeacherController@store');
                 Route::post('/delete', 'TeacherController@destroy');
@@ -60,7 +60,7 @@ Route::prefix('/admin')
             ->name('user.')
             ->group(function(){
                 Route::get('/', 'UserController@index')->name('list');
-                Route::get('/list', 'UserController@index');
+                Route::get('/list', 'UserController@list');
                 Route::get('/register', 'UserController@create');
                 Route::post('/register', 'UserController@store');
                 Route::post('/delete', 'UserController@destroy');
@@ -70,7 +70,7 @@ Route::prefix('/admin')
             ->name('course.')
             ->group(function(){
                 Route::get('/', 'CourseController@index')->name('list');
-                Route::get('/list', 'CourseController@index');
+                Route::get('/list', 'CourseController@list');
                 Route::get('/register', 'CourseController@create');
                 Route::post('/register', 'CourseController@store');
                 Route::post('/delete', 'CourseController@destroy');

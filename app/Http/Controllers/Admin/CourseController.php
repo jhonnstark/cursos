@@ -16,7 +16,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return view('admin.list');
+        return view('admin.list', ['role' => 'course']);
     }
 
     /**

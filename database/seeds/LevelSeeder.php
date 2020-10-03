@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Level;
 use Illuminate\Database\Seeder;
 
 class LevelSeeder extends Seeder
@@ -11,6 +12,6 @@ class LevelSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(Level::class, 2)->create();
     }
 }

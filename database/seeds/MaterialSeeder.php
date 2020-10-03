@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Material;
 use Illuminate\Database\Seeder;
 
 class MaterialSeeder extends Seeder
@@ -11,6 +12,6 @@ class MaterialSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(Material::class, 1)->create();
     }
 }

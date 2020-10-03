@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    <admin-list></admin-list>
+    <admin-list role="{{ $role }}"></admin-list>
 @endsection

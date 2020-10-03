@@ -28,6 +28,7 @@
 <script>
 export default {
     name: "AdminList",
+    props: ['role'],
     data: function () {
         return {
             items: null
@@ -35,7 +36,7 @@ export default {
     },
     mounted () {
         axios
-            .get('/admin/admins/list')
+            .get('/admin/' + this.role + '/list')
             .then(response => (this.items = response.data.data))
     }
 }

@@ -15,9 +15,6 @@ class CreateUserProfilesTable extends Migration
     {
         Schema::create('user_profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('lastname');
-            $table->string('mothers_lastname');
             $table->date('birthday')->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->unsignedInteger('age')->nullable();
