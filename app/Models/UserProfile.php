@@ -18,10 +18,10 @@ class UserProfile extends Model
     ];
 
     /**
-     * Get the post that owns the comment.
+     * Get the state that owns the user.
      */
-    public function post()
+    public function state()
     {
-        return $this->belongsTo('App\Post');
+        return $this->belongsTo(State::class);
     }
 }

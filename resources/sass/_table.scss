@@ -5,4 +5,8 @@
             border-color: $blue;
         }
     }
+    .th:last-child,
+    .td:last-child, {
+        width: 200px;
+    }
 }

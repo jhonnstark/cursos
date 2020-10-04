@@ -90,6 +90,7 @@ class CourseController extends Controller
      *
      * @param Course $course
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Course $course)
     {

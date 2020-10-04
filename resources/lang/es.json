@@ -5,6 +5,14 @@
     "Register": "Registro",
     "Formulario admin": "Formulario de creacion de administradores",
     "Formulario user": "Formulario de creacion de alumnos",
+    "Formulario level": "Formulario de creacion de niveles",
+    "Formulario category": "Formulario de creacion de categorías",
+    "Formulario course": "Formulario de creacion de cursos",
+    "Listado admin": "Listado de administradores",
+    "Listado user": "Listado de alumnos",
+    "Listado level": "Listado de niveles",
+    "Listado course": "Listado de cursos",
+    "Listado category": "Listado de categorías",
     "Logout": "Logout",
     "Login": "Login"
 }

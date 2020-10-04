@@ -106,6 +106,7 @@ class UserController extends Controller
      *
      * @param User $user
      * @return JsonResponse
+     * @throws \Exception
      */
     public function destroy(User $user)
     {

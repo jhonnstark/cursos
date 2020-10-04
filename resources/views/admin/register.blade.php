@@ -26,6 +26,8 @@
 
                         @if($role == 'course')
                             <course-form role="{{ $role }}"></course-form>
+                        @elseif($role == 'category' || $role == 'level')
+                            <table-form role="{{ $role }}"></table-form>
                         @else
                             <register-form role="{{ $role }}"></register-form>
                         @endif

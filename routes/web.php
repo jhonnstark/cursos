@@ -75,6 +75,26 @@ Route::prefix('/admin')
                 Route::post('/register', 'CourseController@store');
                 Route::delete('/delete/{course}', 'CourseController@destroy');
             });
+
+        Route::prefix('/category')
+            ->name('category.')
+            ->group(function(){
+                Route::get('/', 'CategoryController@index')->name('list');
+                Route::get('/list', 'CategoryController@list');
+                Route::get('/register', 'CategoryController@create')->name('register');
+                Route::post('/register', 'CategoryController@store');
+                Route::delete('/delete/{category}', 'CategoryController@destroy');
+            });
+
+        Route::prefix('/level')
+            ->name('level.')
+            ->group(function(){
+                Route::get('/', 'LevelController@index')->name('list');
+                Route::get('/list', 'LevelController@list');
+                Route::get('/register', 'LevelController@create')->name('register');
+                Route::post('/register', 'LevelController@store');
+                Route::delete('/delete/{level}', 'LevelController@destroy');
+            });
 });
 Route::prefix('/teacher')
     ->middleware('auth:teacher')

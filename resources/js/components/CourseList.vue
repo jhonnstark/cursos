@@ -9,7 +9,7 @@
                     <th scope="col">Nombre</th>
                     <th scope="col">Alumnos</th>
                     <th scope="col">Profesor</th>
-                    <th scope="col">Acciones</th>
+                    <th scope="col" class="text-right">Acciones</th>
                 </tr>
                 </thead>
                 <tbody>

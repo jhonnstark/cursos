@@ -3,25 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AdminRequest;
-use App\Http\Resources\AdminCollection;
-use App\Models\Admin;
-use App\Http\Resources\Admin as AdminResource;
+use App\Http\Requests\CategoryRequest;
+use App\Http\Resources\CategoryCollection;
+use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
 
-class AdminController extends Controller
+class CategoryController extends Controller
 {
-
 
     /**
      * Display a listing view of the resource.
      */
-    private $role = ['role' => 'admins'];
+    private $role = ['role' => 'category'];
 
     /**
-     * Display a listing view of the resource.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\View\View
      */
@@ -33,11 +29,11 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return AdminCollection
+     * @return
      */
     public function list()
     {
-        return new AdminCollection(Admin::all());
+        return new CategoryCollection(Category::all());
     }
 
     /**
@@ -53,14 +49,12 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param AdminRequest $request
+     * @param CategoryRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(AdminRequest $request)
+    public function store(CategoryRequest $request)
     {
-        $record = $request->validated();
-        $record['password'] = Hash::make($record['password']);
-        Admin::create($record);
+        Category::create($request->validated());
         return response()->json([
             'status' => 201,
             'message' => 'created',
@@ -70,22 +64,22 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Admin  $admin
-     * @return AdminResource
+     * @param Category $category
+     * @return \Illuminate\Http\Response
      */
-    public function show(Admin $admin)
+    public function show(Category $category)
     {
-        return new AdminResource($admin);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param  Admin  $admin
-     * @return Response
+     * @param  \Illuminate\Http\Request  $request
+     * @param Category $category
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, Category $category)
     {
         //
     }
@@ -93,16 +87,15 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Admin $admin
+     * @param Category $category
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
      */
-    public function destroy(Admin $admin)
+    public function destroy(Category $category)
     {
-        $admin->delete();
+        $category->delete();
         return response()->json([
             'status' => 204,
-            'message' => 'Deleted admin'
+            'message' => 'Deleted Course'
         ],204 );
     }
 }
