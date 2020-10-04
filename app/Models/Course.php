@@ -31,4 +31,36 @@ class Course extends Model
     {
         return $this->belongsTo(Level::class);
     }
+
+    /**
+     * Get the content for the course.
+     */
+    public function content()
+    {
+        return $this->hasMany(Content::class);
+    }
+
+    /**
+     * Get the activity for the course.
+     */
+    public function activity()
+    {
+        return $this->hasMany(Activity::class);
+    }
+
+    /**
+     * The teacher that belong to the course.
+     */
+    public function teacher()
+    {
+        return $this->belongsToMany(Teacher::class, 'lecturings');
+    }
+
+    /**
+     * The student that belong to the course.
+     */
+    public function student()
+    {
+        return $this->belongsToMany(User::class, 'learnings');
+    }
 }

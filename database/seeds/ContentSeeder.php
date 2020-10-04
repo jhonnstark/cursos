@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Content;
 use Illuminate\Database\Seeder;
 
 class ContentSeeder extends Seeder
@@ -11,6 +12,6 @@ class ContentSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(Content::class, 3)->create();
     }
 }
