@@ -17,4 +17,24 @@ class TeacherDashboard extends Controller
     {
         return view('teacher.teacher');
     }
+
+    /**
+     * Show the teacher dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function profile()
+    {
+        return view('teacher.teacher');
+    }
+
+    /**
+     * Show the teacher dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function courses()
+    {
+        return view('teacher.teacher');
+    }
 }

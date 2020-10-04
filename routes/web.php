@@ -101,6 +101,10 @@ Route::prefix('/teacher')
     ->name('teacher.')
     ->namespace('Teacher')
     ->group(function(){
-    //All the teacher routes will be defined here...
         Route::get('/', 'TeacherDashboard@teacher');
+        Route::get('/profile', 'TeacherDashboard@profile')->name('profile');
+        Route::get('/courses', 'TeacherDashboard@courses')->name('courses');
 });
+
+Route::get('/profile', 'HomeController@profile')->name('profile');
+Route::get('/courses', 'HomeController@courses')->name('courses');
