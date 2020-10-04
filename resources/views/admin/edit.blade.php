@@ -39,7 +39,6 @@
         </div>
     </div>
 
-
     <div class="container">
         <div class="row justify-content-between">
             <h5>{{ __('Cursos') }}</h5>
@@ -47,10 +46,10 @@
         </div>
     </div>
 
-
     @if($role == 'teacher')
         <my-course-list role="{{ $role }}" id="{{ $id }}"></my-course-list>
     @elseif($role == 'user')
         <my-class-list role="{{ $role }}" id="{{ $id }}"></my-class-list>
     @endif
+
 @endsection

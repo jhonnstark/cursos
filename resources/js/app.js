@@ -34,6 +34,8 @@ Vue.component('course-form', require('./components/CourseForm.vue').default);
 Vue.component('register-form', require('./components/RegisterForm.vue').default);
 Vue.component('table-form', require('./components/TableForm.vue').default);
 
+Vue.component('class-list', require('./components/ClassList.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

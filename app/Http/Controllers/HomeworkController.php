@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CourseCollection;
 use App\Models\Homework;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeworkController extends Controller

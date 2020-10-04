@@ -124,3 +124,4 @@ Route::prefix('/teacher')
 
 Route::get('/profile', 'HomeController@profile')->name('profile');
 Route::get('/courses', 'HomeController@courses')->name('courses');
+Route::get('/courses/list', 'HomeController@list');

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CourseCollection;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -37,13 +40,25 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Store a newly created resource in storage.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return CourseCollection|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function courses()
     {
-        return view('home');
+        return view('courses', ['id' => Auth::id()]);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param User $user
+     * @return CourseCollection
+     */
+    public function list(User $user)
+    {
+        $user->load('courses.teacher');
+        $courses = $user->courses;
+        return new CourseCollection($courses);
+    }
 }
