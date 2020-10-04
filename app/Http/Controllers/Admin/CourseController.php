@@ -34,7 +34,7 @@ class CourseController extends Controller
      */
     public function list()
     {
-        return new CourseCollection(Course::all());
+        return new CourseCollection(Course::with('teacher')->with('student')->get());
     }
 
     /**
