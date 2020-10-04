@@ -15,6 +15,10 @@ class CreateHomeworksTable extends Migration
     {
         Schema::create('homeworks', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('url');
+            $table->string('ext');
+            $table->string('size');
             $table->foreignId('user_id')->constrained()
                 ->onDelete('cascade');
             $table->foreignId('activity_id')->constrained()

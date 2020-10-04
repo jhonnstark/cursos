@@ -6,11 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserProfile extends Model
 {
+
     /**
-     * Get the post that owns the comment.
+     * The attributes that are mass assignable.
+     *
+     * @var array
      */
-    public function post()
+    protected $fillable = [
+        'birthday', 'gender', 'age', 'address', 'address_ext', 'state_id',
+        // 'user_id'
+    ];
+
+    /**
+     * Get the state that owns the user.
+     */
+    public function state()
     {
-        return $this->belongsTo('App\Post');
+        return $this->belongsTo(State::class);
     }
 }

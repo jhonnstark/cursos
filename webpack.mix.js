@@ -12,4 +12,23 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+    .sourceMaps()
+    .extract(['vue'])
+    .copyDirectory('resources/img', 'public/img')
+    .sass('resources/sass/app.scss', 'public/css')
+    .browserSync({
+        open: 'external',
+        host: 'localhost',
+        proxy: 'localhost',
+        files: [
+            'resources/views/**/*.php',
+            'app/**/*.php', 'routes/**/*.php',
+            'public/js/*.js',
+            'resources/js/components/*.vue',
+            'public/css/*.css'
+        ]
+    });
+
+if (mix.inProduction()) {
+    mix.version();
+}

@@ -15,7 +15,7 @@ class CreateLecturingsTable extends Migration
     {
         Schema::create('lecturings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()
+            $table->foreignId('teacher_id')->constrained()
                 ->onDelete('cascade');
             $table->foreignId('course_id')->constrained()
                 ->onDelete('cascade');
