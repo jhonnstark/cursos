@@ -44,4 +44,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserProfile::class);
     }
+
+    /**
+     * The course that belong to the user.
+     */
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'learnings');
+    }
 }

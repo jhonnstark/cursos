@@ -11,6 +11,11 @@
     th,
     td, {
 
+        &:first-child,
+        &:first-child {
+            width: 20px;
+        }
+
         &:last-child,
         &:last-child {
             width: 120px;

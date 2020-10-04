@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Http\Resources\CourseCollection;
 use App\Http\Resources\UserCollection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -54,6 +55,19 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param User $user
+     * @return CourseCollection
+     */
+    public function courses(User $user)
+    {
+        $user->load('courses.teacher');
+        $courses = $user->courses;
+        return new CourseCollection($courses);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
      * @param UserRequest $request
      * @return JsonResponse
      */
@@ -97,7 +111,23 @@ class UserController extends Controller
         $user->update($request->validated());
         return response()->json([
             'status' => 200,
-            'message' => 'Update user'
+            'message' => 'Updated user'
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function detach(Request $request, User $user)
+    {
+        $user->courses()->detach($request->input('id'));
+        return response()->json([
+            'status' => 200,
+            'message' => 'Updated user'
         ]);
     }
 

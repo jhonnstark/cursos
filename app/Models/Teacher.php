@@ -26,4 +26,12 @@ class Teacher extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * The course that belong to the teacher.
+     */
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'lecturings');
+    }
 }

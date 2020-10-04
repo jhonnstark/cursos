@@ -7,6 +7,7 @@
             <nav aria-label="breadcrumb col-9">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.' . $role. '.list') }}">{{ __($role) }}</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{ __('Register') }}</li>
                 </ol>
             </nav>

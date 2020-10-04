@@ -7,6 +7,7 @@
             <nav aria-label="breadcrumb col-9">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.' . $role . '.list') }}">{{ __($role) }}</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{ __('Editar') }}</li>
                 </ol>
             </nav>
@@ -39,11 +40,17 @@
     </div>
 
 
+    <div class="container">
+        <div class="row justify-content-between">
+            <h5>{{ __('Cursos') }}</h5>
+            <hr class="col-12">
+        </div>
+    </div>
 
 
     @if($role == 'teacher')
-        <course-list role="{{ $role }}"></course-list>
+        <my-course-list role="{{ $role }}" id="{{ $id }}"></my-course-list>
     @elseif($role == 'user')
-        <table-list role="{{ $role }}"></table-list>
+        <my-class-list role="{{ $role }}" id="{{ $id }}"></my-class-list>
     @endif
 @endsection

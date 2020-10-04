@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TeacherRequest;
 use App\Http\Requests\TeacherUpdateRequest;
+use App\Http\Resources\Course;
+use App\Http\Resources\CourseCollection;
 use App\Http\Resources\TeacherCollection;
 use App\Models\Teacher;
 use App\Http\Resources\Teacher as TeacherResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Testing\TestResponse;
 
 class TeacherController extends Controller
 {
@@ -50,6 +51,18 @@ class TeacherController extends Controller
         return view('admin.register', $this->role);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Teacher $teacher
+     * @return CourseCollection
+     */
+    public function courses(Teacher $teacher)
+    {
+        $teacher->load('courses');
+        $courses = $teacher->courses->loadCount('student');
+        return new CourseCollection($courses);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -64,7 +77,7 @@ class TeacherController extends Controller
         Teacher::create($record);
         return response()->json([
             'status' => 201,
-            'message' => 'created',
+            'message' => 'created teacher',
         ], 201);
     }
 
@@ -97,7 +110,23 @@ class TeacherController extends Controller
         $teacher->update($request->validated());
         return response()->json([
             'status' => 200,
-            'message' => 'Update admin'
+            'message' => 'Update teacher'
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param Teacher $teacher
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function detach(Request $request, Teacher $teacher)
+    {
+        $teacher->courses()->detach($request->input('id'));
+        return response()->json([
+            'status' => 200,
+            'message' => 'Update teacher'
         ]);
     }
 
