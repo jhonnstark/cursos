@@ -43,6 +43,8 @@ Route::prefix('/admin')
                 Route::get('/list', 'AdminController@list');
                 Route::get('/register', 'AdminController@create')->name('register');
                 Route::post('/register', 'AdminController@store');
+                Route::get('/edit/{admin}', 'AdminController@show')->name('edit');
+                Route::put('/edit/{admin}', 'AdminController@update');
                 Route::delete('/delete/{admin}', 'AdminController@destroy');
             });
 
@@ -53,6 +55,8 @@ Route::prefix('/admin')
                 Route::get('/list', 'TeacherController@list');
                 Route::get('/register', 'TeacherController@create')->name('register');
                 Route::post('/register', 'TeacherController@store');
+                Route::get('/edit/{teacher}', 'TeacherController@show')->name('edit');
+                Route::put('/edit/{teacher}', 'TeacherController@update');
                 Route::delete('/delete/{teacher}', 'TeacherController@destroy');
             });
 
@@ -63,6 +67,8 @@ Route::prefix('/admin')
                 Route::get('/list', 'UserController@list');
                 Route::get('/register', 'UserController@create')->name('register');
                 Route::post('/register', 'UserController@store');
+                Route::get('/edit/{user}', 'UserController@show')->name('edit');
+                Route::put('/edit/{user}', 'UserController@update');
                 Route::delete('/delete/{user}', 'UserController@destroy');
             });
 
@@ -73,6 +79,8 @@ Route::prefix('/admin')
                 Route::get('/list', 'CourseController@list');
                 Route::get('/register', 'CourseController@create')->name('register');
                 Route::post('/register', 'CourseController@store');
+                Route::get('/edit/{course}', 'CourseController@show')->name('edit');
+                Route::put('/edit/{course}', 'CourseController@update');
                 Route::delete('/delete/{course}', 'CourseController@destroy');
             });
 
@@ -83,6 +91,8 @@ Route::prefix('/admin')
                 Route::get('/list', 'CategoryController@list');
                 Route::get('/register', 'CategoryController@create')->name('register');
                 Route::post('/register', 'CategoryController@store');
+                Route::get('/edit/{category}', 'CategoryController@show')->name('edit');
+                Route::put('/edit/{category}', 'CategoryController@update');
                 Route::delete('/delete/{category}', 'CategoryController@destroy');
             });
 
@@ -93,6 +103,8 @@ Route::prefix('/admin')
                 Route::get('/list', 'LevelController@list');
                 Route::get('/register', 'LevelController@create')->name('register');
                 Route::post('/register', 'LevelController@store');
+                Route::get('/edit/{level}', 'LevelController@show')->name('edit');
+                Route::put('/edit/{level}', 'LevelController@update');
                 Route::delete('/delete/{level}', 'LevelController@destroy');
             });
 });

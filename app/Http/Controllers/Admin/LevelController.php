@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LevelRequest;
 use App\Http\Resources\LevelCollection;
+use App\Http\Resources\LevelResource;
 use App\Models\Level;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -66,24 +67,34 @@ class LevelController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @param Level $level
-     * @return \Illuminate\Http\Response
+     * @return LevelResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Level $level)
+    public function show(Request $request, Level $level)
     {
-        //
+        if ($request->wantsJson()) {
+            return new LevelResource($level);
+        }
+        $role = $this->role['role'];
+        $id = $level->id;
+        return view('admin.edit', compact('role', 'id'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param LevelRequest $request
      * @param Level $level
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function update(Request $request, Level $level)
+    public function update(LevelRequest $request, Level $level)
     {
-        //
+        $level->update($request->validated());
+        return response()->json([
+            'status' => 200,
+            'message' => 'Update level'
+        ]);
     }
 
     /**

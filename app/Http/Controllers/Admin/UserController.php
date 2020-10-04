@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserCollection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -70,23 +71,18 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @param User $user
-     * @return UserResource
+     * @return UserResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(User $user)
+    public function show(Request $request, User $user)
     {
-        return new UserResource($user);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        if ($request->wantsJson()) {
+            return new UserResource($user);
+        }
+        $role = $this->role['role'];
+        $id = $user->id;
+        return view('admin.edit', compact('role', 'id'));
     }
 
     /**
@@ -94,11 +90,15 @@ class UserController extends Controller
      *
      * @param Request $request
      * @param User $user
-     * @return void
+     * @return JsonResponse
      */
-    public function update(Request $request, User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
-        //
+        $user->update($request->validated());
+        return response()->json([
+            'status' => 200,
+            'message' => 'Update user'
+        ]);
     }
 
     /**

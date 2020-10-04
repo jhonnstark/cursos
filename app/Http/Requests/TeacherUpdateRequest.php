@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
-class AdminRequest extends FormRequest
+class TeacherUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +24,10 @@ class AdminRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'bail|required|email|unique:admins,email|max:255',
+            'email' => 'bail|required|email|exists:teachers,email|max:255',
             'name' => 'required',
             'lastname' => 'required',
             'mothers_lastname' => 'required',
-            'password' => 'required|confirmed',
         ];
     }
 }

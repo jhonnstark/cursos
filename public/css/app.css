@@ -10926,14 +10926,20 @@ svg {
   max-width: 140px;
 }
 
-.table .thead-dark .th {
+.table {
+  font-size: 1.05rem;
+}
+
+.table .thead-dark th {
   background-color: #182254;
   border-color: #182254;
 }
 
-.table .th:last-child,
-.table .td:last-child {
-  width: 200px;
+.table th:last-child,
+.table th:last-child,
+.table td:last-child,
+.table td:last-child {
+  width: 120px;
 }
 
 .btn svg + * {

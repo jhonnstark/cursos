@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TeacherRequest;
+use App\Http\Requests\TeacherUpdateRequest;
 use App\Http\Resources\TeacherCollection;
 use App\Models\Teacher;
+use App\Http\Resources\Teacher as TeacherResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Testing\TestResponse;
 
 class TeacherController extends Controller
 {
@@ -68,24 +71,34 @@ class TeacherController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Teacher  $teacher
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Teacher $teacher
+     * @return TeacherResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Teacher $teacher)
+    public function show(Request $request, Teacher $teacher)
     {
-        //
+        if ($request->wantsJson()) {
+            return new TeacherResource($teacher);
+        }
+        $role = $this->role['role'];
+        $id = $teacher->id;
+        return view('admin.edit', compact('role', 'id'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Teacher  $teacher
-     * @return \Illuminate\Http\Response
+     * @param TeacherUpdateRequest $request
+     * @param Teacher $teacher
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Teacher $teacher)
+    public function update(TeacherUpdateRequest $request, Teacher $teacher)
     {
-        //
+        $teacher->update($request->validated());
+        return response()->json([
+            'status' => 200,
+            'message' => 'Update admin'
+        ]);
     }
 
     /**

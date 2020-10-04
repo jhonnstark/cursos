@@ -26,7 +26,6 @@
 
     </div>
 
-
     @if($role == 'course')
         <course-list role="{{ $role }}"></course-list>
     @elseif($role == 'category' || $role == 'level')

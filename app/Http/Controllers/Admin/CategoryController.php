@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryCollection;
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -65,23 +66,32 @@ class CategoryController extends Controller
      * Display the specified resource.
      *
      * @param Category $category
-     * @return \Illuminate\Http\Response
+     * @return CategoryResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Category $category)
+    public function show(Request $request, Category $category)
     {
-        //
+        if ($request->wantsJson()) {
+            return new CategoryResource($category);
+        }
+        $role = $this->role['role'];
+        $id = $category->id;
+        return view('admin.edit', compact('role', 'id'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param CategoryRequest $request
      * @param Category $category
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        $category->update($request->validated());
+        return response()->json([
+            'status' => 200,
+            'message' => 'Update category'
+        ]);
     }
 
     /**

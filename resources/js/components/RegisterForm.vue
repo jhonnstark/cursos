@@ -64,6 +64,7 @@
                 <input
                     v-model.trim="$v.record.email.$model"
                     :class="{ 'is-invalid': $v.record.email.$error }"
+                    :disabled=isEdit
                     id="email" type="email" class="form-control" name="email" required autocomplete="email">
 
                 <span
@@ -75,7 +76,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="form-group row" v-if="!edit">
             <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
             <div class="col-md-6">
@@ -93,7 +94,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="form-group row" v-if="!edit">
             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirmación</label>
 
             <div class="col-md-6">
@@ -123,7 +124,7 @@
                 <button type="submit"
                         :class="[ !$v.$invalid? 'btn-primary': 'btn-secondary']"
                         class="btn">
-                    Agregar
+                    {{ isEdit ? 'Actualizar' : ' Agregar' }}
                 </button>
             </div>
         </div>
@@ -137,7 +138,7 @@ import { required, minLength, maxLength, sameAs, email } from 'vuelidate/lib/val
 
 export default {
     name: "RegisterForm",
-    props: ['role'],
+    props: ['role', 'edit'],
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -147,9 +148,12 @@ export default {
                 email: null,
                 lastname: null,
                 mothers_lastname: null,
-                password: null,
+                password: "",
                 password_confirmation: null,
-            }
+            },
+            rute: this.edit
+                ? '/admin/' + this.role + '/edit/' + this.edit
+                : '/admin/' + this.role + '/register'
         }
     },
     validations: {
@@ -176,7 +180,6 @@ export default {
                 maxLength: maxLength(255)
             },
             password: {
-                required,
                 minLength: minLength(6),
                 maxLength: maxLength(255)
             },
@@ -185,26 +188,50 @@ export default {
             },
         },
     },
+    created() {
+        if (this.edit) {
+            axios.get('/admin/' + this.role + '/edit/' + this.edit)
+                .then(response => {
+                    console.log(response.data);
+                    this.record = response.data.data;
+                })
+        }
+    },
     methods:{
         register() {
-            if (this.$v.$invalid) {
+            if (this.$v.$invalid
+                || (!this.isEdit && this.record.password === '')) {
                 this.errors = true;
             } else {
                 this.$v.$reset();
                 this.errors = false;
-                axios.post('/admin/' + this.role + '/register', this.record)
-                    .then(response => {
-                        this.record.name = null;
-                        this.record.email = null;
-                        this.record.lastname = null;
-                        this.record.mothers_lastname = null;
-                        this.record.password = null;
-                        this.record.password_confirmation = null;
+                axios({
+                    method: this.edit ? 'put' : 'post',
+                    url:  this.rute,
+                    data: this.record
+                    }).then(response => {
+                        if (!this.edit) {
+                            this.clearForm();
+                        }
+                        alert('Guardado');
                     })
                     .catch(error => console.log(error))
             }
+        },
+        clearForm() {
+            this.record.name = null;
+            this.record.email = null;
+            this.record.lastname = null;
+            this.record.mothers_lastname = null;
+            this.record.password = null;
+            this.record.password_confirmation = null;
         }
     },
+    computed: {
+        isEdit() {
+            return !!this.edit;
+        },
+    }
 }
 </script>
 

@@ -1,12 +1,19 @@
 .table {
+    font-size: 1.05rem;
+
     .thead-dark {
-        .th {
+        th {
             background-color: $blue;
             border-color: $blue;
         }
     }
-    .th:last-child,
-    .td:last-child, {
-        width: 200px;
+
+    th,
+    td, {
+
+        &:last-child,
+        &:last-child {
+            width: 120px;
+        }
     }
 }

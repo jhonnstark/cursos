@@ -28,6 +28,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('admin-list', require('./components/AdminList.vue').default);
 Vue.component('course-list', require('./components/CourseList.vue').default);
 Vue.component('table-list', require('./components/TableList.vue').default);
+Vue.component('my-course-list', require('./components/MyCoursesList.vue').default);
 Vue.component('course-form', require('./components/CourseForm.vue').default);
 Vue.component('register-form', require('./components/RegisterForm.vue').default);
 Vue.component('table-form', require('./components/TableForm.vue').default);

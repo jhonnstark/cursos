@@ -28,7 +28,7 @@
                 <button type="submit"
                         :class="[ !$v.$invalid? 'btn-primary': 'btn-secondary']"
                         class="btn">
-                    Agregar
+                    {{ isEdit ? 'Actualizar' : ' Agregar' }}
                 </button>
                 <span
                     v-if="$v.$invalid && errors"
@@ -43,18 +43,21 @@
 
 <script>
 
-import { required, minLength, maxLength, sameAs, email } from 'vuelidate/lib/validators';
+import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 
 export default {
     name: "CourseForm",
-    props: ['role'],
+    props: ['role', 'edit'],
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             errors: false,
             record: {
                 name: null,
-            }
+            },
+            rute: this.edit
+                ? '/admin/' + this.role + '/edit/' + this.edit
+                : '/admin/' + this.role + '/register'
         }
     },
     validations: {
@@ -66,6 +69,15 @@ export default {
             },
         },
     },
+    created() {
+        if (this.edit) {
+            axios.get('/admin/' + this.role + '/edit/' + this.edit)
+                .then(response => {
+                    console.log(response.data);
+                    this.record = response.data.data;
+                })
+        }
+    },
     methods:{
         register() {
             if (this.$v.$invalid) {
@@ -73,15 +85,26 @@ export default {
             } else {
                 this.$v.$reset();
                 this.errors = false;
-                axios.post('/admin/' + this.role + '/register', this.record)
-                    .then(response => {
-                        this.record.name = null;
-                        this.record.active = false;
+                axios({
+                    method: this.edit ? 'put' : 'post',
+                    url:  this.rute,
+                    data: this.record
+                }).then(response => {
+                        if (!this.edit) {
+                            this.record.name = null;
+                            this.record.active = false;
+                        }
+                        alert('Guardado');
                     })
                     .catch(error => console.log(error))
             }
         }
     },
+    computed: {
+        isEdit() {
+            return !!this.edit;
+        },
+    }
 }
 </script>
 

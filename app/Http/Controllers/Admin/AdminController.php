@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminRequest;
+use App\Http\Requests\AdminUpdateRequest;
 use App\Http\Resources\AdminCollection;
 use App\Models\Admin;
 use App\Http\Resources\Admin as AdminResource;
@@ -70,24 +71,34 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Admin  $admin
-     * @return AdminResource
+     * @param Request $request
+     * @param Admin $admin
+     * @return AdminResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Admin $admin)
+    public function show(Request $request, Admin $admin)
     {
-        return new AdminResource($admin);
+        if ($request->wantsJson()) {
+            return new AdminResource($admin);
+        }
+        $role = $this->role['role'];
+        $id = $admin->id;
+        return view('admin.edit', compact('role', 'id'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param  Admin  $admin
-     * @return Response
+     * @param AdminUpdateRequest $request
+     * @param Admin $admin
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Admin $admin)
+    public function update(AdminUpdateRequest $request, Admin $admin)
     {
-        //
+        $admin->update($request->validated());
+        return response()->json([
+            'status' => 200,
+            'message' => 'Update admin'
+        ]);
     }
 
     /**
