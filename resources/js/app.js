@@ -8,6 +8,14 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 const { Vuelidate } = require('vuelidate')
+
+import vSelect from 'vue-select'
+
+/**
+ * Select for forms
+ */
+Vue.component('v-select', vSelect)
+
 /**
  * Validation for forms
  */
@@ -34,7 +42,7 @@ Vue.component('course-form', require('./components/CourseForm.vue').default);
 Vue.component('register-form', require('./components/RegisterForm.vue').default);
 Vue.component('table-form', require('./components/TableForm.vue').default);
 
-Vue.component('class-list', require('./components/ClassList.vue').default);
+Vue.component('class-list', require('./components/User/ClassList.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

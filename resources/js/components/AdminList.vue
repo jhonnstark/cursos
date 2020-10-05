@@ -43,7 +43,7 @@ export default {
             items: null
         }
     },
-    mounted () {
+    created () {
         axios
             .get('/admin/' + this.role + '/list')
             .then(response => (this.items = response.data.data))

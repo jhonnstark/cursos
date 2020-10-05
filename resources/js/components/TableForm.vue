@@ -73,7 +73,6 @@ export default {
         if (this.edit) {
             axios.get('/admin/' + this.role + '/edit/' + this.edit)
                 .then(response => {
-                    console.log(response.data);
                     this.record = response.data.data;
                 })
         }

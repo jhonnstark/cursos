@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseRequest;
+use App\Http\Requests\CourseUpdateRequest;
 use App\Http\Resources\CourseCollection;
 use App\Models\Course;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\Course as CourseResource;
 
 class CourseController extends Controller
 {
@@ -55,7 +56,10 @@ class CourseController extends Controller
      */
     public function store(CourseRequest $request)
     {
-        Course::create($request->validated());
+        $course = Course::create($request->validated());
+        if ($request->has('teacher_id')) {
+            $course->teacher()->attach($request->teacher_id);
+        }
         return response()->json([
             'status' => 201,
             'message' => 'created',
@@ -65,24 +69,38 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @param Course $course
-     * @return \Illuminate\Http\Response
+     * @return CourseResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Course $course)
+    public function show(Request $request, Course $course)
     {
-        //
+        if ($request->wantsJson()) {
+            return new CourseResource($course->load('teacher'));
+        }
+        $role = $this->role['role'];
+        $id = $course->id;
+        return view('admin.edit', compact('role', 'id'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param CourseRequest $request
      * @param Course $course
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Course $course)
+    public function update(CourseUpdateRequest $request, Course $course)
     {
-        //
+        $course->update($request->validated());
+        $ids = $request->has('teacher_id')
+            ? [ $request->teacher_id ]
+            : [];
+        $course->teacher()->sync($ids);
+        return response()->json([
+            'status' => 200,
+            'message' => 'Updated user'
+        ]);
     }
 
     /**
