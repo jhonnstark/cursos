@@ -24,7 +24,6 @@
         </div>
 
         <div class="form-group row">
-
             <div class="col-md-6 offset-md-4">
                 <div class="form-check">
                     <input
@@ -36,7 +35,58 @@
                     </label>
                 </div>
             </div>
+        </div>
 
+        <div class="form-group row">
+            <label for="category" class="col-md-4 col-form-label text-md-right">Categoría</label>
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="category">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path></svg>
+                        </label>
+                    </div>
+                    <v-select class="" id="category" name="category" :options="['Canada', 'United States']"></v-select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="level" class="col-md-4 col-form-label text-md-right">Level</label>
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="level">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path></svg>
+                        </label>
+                    </div>
+                    <select class="custom-select" id="level" name="level">
+                        <option selected>Choose...</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="teacher" class="col-md-4 col-form-label text-md-right">Profesor</label>
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="teacher">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path></svg>
+                        </label>
+                    </div>
+                    <select class="custom-select" id="teacher" name="teacher">
+                        <option selected>Choose...</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
         <div class="form-group row mb-0">
