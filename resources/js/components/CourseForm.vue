@@ -46,7 +46,13 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path></svg>
                         </label>
                     </div>
-                    <v-select class="" id="category" name="category" :options="['Canada', 'United States']"></v-select>
+                    <v-select v-model="record.category_id" :reduce="category => category.id" label="name" id="category" name="category" :options="category"></v-select>
+
+                    <span
+                        v-if="!$v.record.category_id.error"
+                        class="invalid-feedback" role="alert">
+                        <strong>Campo invalido</strong>
+                    </span>
                 </div>
             </div>
         </div>
@@ -60,12 +66,13 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path></svg>
                         </label>
                     </div>
-                    <select class="custom-select" id="level" name="level">
-                        <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
+                    <v-select v-model="record.level_id" :reduce="level => level.id" label="name" id="level" name="level" :options="level"></v-select>
+
+                    <span
+                        v-if="!$v.record.level_id.error"
+                        class="invalid-feedback" role="alert">
+                        <strong>Campo invalido</strong>
+                    </span>
                 </div>
             </div>
         </div>
@@ -79,12 +86,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path></svg>
                         </label>
                     </div>
-                    <select class="custom-select" id="teacher" name="teacher">
-                        <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
+                    <v-select v-model="record.teacher_id" :reduce="teacher => teacher.id" label="name" id="teacher" name="teacher" :options="teacher"></v-select>
                 </div>
             </div>
         </div>
@@ -109,7 +111,7 @@
 
 <script>
 
-import { required, minLength, maxLength, sameAs, email } from 'vuelidate/lib/validators';
+import { required, minLength, maxLength, integer } from 'vuelidate/lib/validators';
 
 export default {
     name: "CourseForm",
@@ -121,7 +123,13 @@ export default {
             record: {
                 name: null,
                 active: false,
-            }
+                teacher_id:null,
+                level_id:null,
+                category_id:null,
+            },
+            teacher:[],
+            level:[],
+            category:[],
         }
     },
     validations: {
@@ -131,8 +139,27 @@ export default {
                 minLength: minLength(3),
                 maxLength: maxLength(255)
             },
+            level_id: {
+                required,
+                integer
+            },
+            category_id: {
+                required,
+                integer
+            },
             active: {},
         },
+    },
+    created() {
+        axios
+            .get('/admin/teacher/list')
+            .then(response => (this.teacher = response.data.data))
+        axios
+            .get('/admin/level/list')
+            .then(response => (this.level = response.data.data))
+        axios
+            .get('/admin/category/list')
+            .then(response => (this.category = response.data.data))
     },
     methods:{
         register() {
@@ -141,10 +168,19 @@ export default {
             } else {
                 this.$v.$reset();
                 this.errors = false;
+                const data = this.record;
+                if (data.teacher_id === null) {
+                    delete data.teacher_id;
+                }
+
                 axios.post('/admin/' + this.role + '/register', this.record)
                     .then(response => {
                         this.record.name = null;
+                        this.record.level_id = null;
+                        this.record.category_id = null;
+                        this.record.teacher_id = null;
                         this.record.active = false;
+                        alert('Guardado');
                     })
                     .catch(error => console.log(error))
             }

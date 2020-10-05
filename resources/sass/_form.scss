@@ -12,8 +12,11 @@
 .input{
     &-group {
         & > .v-select:not(:first-child) {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
+            .vs__dropdown-toggle {
+                border-radius: 0 0.25rem 0.25rem 0;
+                border: 1px solid #ced4da;
+                padding: 4px 0 5px 0;
+            }
         }
     }
 }

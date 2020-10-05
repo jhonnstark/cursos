@@ -55,7 +55,10 @@ class CourseController extends Controller
      */
     public function store(CourseRequest $request)
     {
-        Course::create($request->validated());
+        $course = Course::create($request->validated());
+        if ($request->has('teacher_id')) {
+            $course->teacher()->attach($request->teacher_id);
+        }
         return response()->json([
             'status' => 201,
             'message' => 'created',

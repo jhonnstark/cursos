@@ -24,6 +24,9 @@ class CourseRequest extends FormRequest
     public function rules()
     {
         return [
+            'category_id' => 'bail|required|exists:categories,id',
+            'level_id' => 'bail|required|exists:levels,id',
+            'teacher_id' => 'sometimes|required|exists:teachers,id',
             'name' => 'bail|required|unique:courses,name|max:255',
             'active' => 'required|boolean',
         ];
