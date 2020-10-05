@@ -96,7 +96,7 @@
                 <button type="submit"
                         :class="[ !$v.$invalid? 'btn-primary': 'btn-secondary']"
                         class="btn">
-                    Agregar
+                    {{ isEdit ? 'Actualizar' : ' Agregar' }}
                 </button>
                 <span
                     v-if="$v.$invalid && errors"
@@ -115,7 +115,7 @@ import { required, minLength, maxLength, integer } from 'vuelidate/lib/validator
 
 export default {
     name: "CourseForm",
-    props: ['role'],
+    props: ['role', 'edit'],
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -130,6 +130,9 @@ export default {
             teacher:[],
             level:[],
             category:[],
+            rute: this.edit
+                ? '/admin/' + this.role + '/edit/' + this.edit
+                : '/admin/' + this.role + '/register'
         }
     },
     validations: {
@@ -147,10 +150,18 @@ export default {
                 required,
                 integer
             },
+            teacher_id: {},
             active: {},
         },
     },
     created() {
+        if (this.edit) {
+            axios.get('/admin/' + this.role + '/edit/' + this.edit)
+                .then(response => {
+                    this.record = response.data.data;
+                    this.record.teacher_id = response.data.data.teacher[0].id;
+                })
+        }
         axios
             .get('/admin/teacher/list')
             .then(response => (this.teacher = response.data.data))
@@ -168,18 +179,19 @@ export default {
             } else {
                 this.$v.$reset();
                 this.errors = false;
-                const data = this.record;
-                if (data.teacher_id === null) {
-                    delete data.teacher_id;
-                }
 
-                axios.post('/admin/' + this.role + '/register', this.record)
-                    .then(response => {
-                        this.record.name = null;
-                        this.record.level_id = null;
-                        this.record.category_id = null;
-                        this.record.teacher_id = null;
-                        this.record.active = false;
+                axios({
+                    method: this.edit ? 'put' : 'post',
+                    url:  this.rute,
+                    data: this.record
+                }).then(response => {
+                        if (!this.edit) {
+                            this.record.name = null;
+                            this.record.level_id = null;
+                            this.record.category_id = null;
+                            this.record.teacher_id = null;
+                            this.record.active = false;
+                        }
                         alert('Guardado');
                     })
                     .catch(error => console.log(error))
